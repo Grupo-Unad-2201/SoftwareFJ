@@ -1,0 +1,47 @@
+Error cliente: name 'valueError' is not defined
+Error cliente: name 'valueError' is not defined
+name 'printl' is not defined
+Error cliente: El nombre no puede estar vacio
+Can't instantiate abstract class Equiposalquilado without an implementation for abstract method 'calcular_costo'
+Error cliente: El nombre no puede estar vacio
+Can't instantiate abstract class Equiposalquilado without an implementation for abstract method 'calcular_costo'
+Error cliente: El nombre no puede estar vacio
+Error cliente: El nombre no puede estar vacio
+Error cliente: El nombre no puede estar vacio
+Error cliente: El nombre no puede estar vacio
+Error cliente: El nombre no puede estar vacio
+Error cliente: El nombre no puede estar vacio
+name 'reservas' is not defined
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+name 'reservas' is not defined
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+name 'reservas' is not defined
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+name 'reservas' is not defined
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+name 'reservas' is not defined
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
+Error cliente: El nombre no puede estar vacio
+Error servicio: El tiempo deber ser mayor a 0 (Cero)
+Error servicio: Los Dias debe ser mayor a 0 (cero)
