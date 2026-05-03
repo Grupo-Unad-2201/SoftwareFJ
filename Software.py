@@ -47,3 +47,52 @@ class Servicio(ABC):
             
 #creacion de los 3 servicios
 #Utilizacion de Herencia y polimorfismo
+
+class SalaReservada(Servicio):
+    def __init__(self, tiempo):
+        super().__init__("sala", 6000)
+        self.tiempo = tiempo
+        
+    def calcular_costo(self):
+        return self.costo_inicial * self.tiempo
+    
+    def descripcion(self):
+        return f"Reserva de sala por {self.tiempo} horas"
+    
+# segundo servicio Alquiler de equipo
+
+class Equiposalquilado(Servicio):
+    def __init__(self, dias):
+        super().__init__("Equipo", 10000)
+        self.dias = dias
+        
+    def calculcar_costo(self):
+         return self.costo_inicial * self.dias
+     
+    def descripcion(self):
+         return f"Alquiler por {self.tiempo} dias. "
+     
+     
+class Asesorias(Servicio):
+    def __init__(sel, tiempo):
+        super().__init__("Asesorias", 20000)
+        self.tiempo = tiempo
+        
+    def calcular_costo(self):
+        return self.costo_inicial * self.tiempo
+    
+    def descripcion (Self):
+        return f"Asesorias por {self.tiempo} horas"
+
+class Asesoria(Servicio):
+    def __init__(self, horas):
+        super().__init__("Asesoria", 30000)
+        self.horas = horas
+        
+    def calcular_costo(self):
+        return self.costo_inicial * self.horas
+    
+    def descripcion (self):
+        return f"Asesoria por {self.horas} horas" 
+    
+   
