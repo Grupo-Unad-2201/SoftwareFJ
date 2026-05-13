@@ -1,3 +1,11 @@
+from datetime import datetime
+
+import re
+
+COSTO_SALA = 6000
+COSTO_EQUIPO = 10000
+COSTO_ASESORIA = 30000
+
 from abc import ABC, abstractmethod
 
 class Entidad(ABC):
@@ -19,14 +27,22 @@ class Cliente(Entidad):
         if not nombre:
             raise ValueError("El nombre no puede estar vacio")
         
-        if "@" not in correo:
-            raise ValueError("Correo Electronico inválido")
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", correo):
+            raise ValueError("Correo electrónico inválido")
         
         self._nombre = nombre
         self._correo = correo
-        
-    def mostrar_info(self):
-        return f"Cliente: {self._nombre}, correo: {self._correo}"
+
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @property
+    def correo(self):
+        return self._correo
+    
+    def __str__(self):
+        return f"{self._nombre} - {self._correo}"
     
     
 #Clase Abstracta de servicio
@@ -50,7 +66,7 @@ class Servicio(ABC):
 
 class SalaReservada(Servicio):
     def __init__(self, tiempo):
-        super().__init__("sala", 6000)
+        super().__init__("sala", COSTO_SALA)
         
         if tiempo <= 0:
             raise ValueError("El tiempo deber ser mayor a 0 (Cero)")
@@ -64,9 +80,9 @@ class SalaReservada(Servicio):
     
 # segundo servicio Alquiler de equipo
 
-class Equiposalquilado(Servicio):
+class AlquilerEquipo(Servicio):
     def __init__(self, dias):
-        super().__init__("Equipo", 10000)
+        super().__init__("Equipo", COSTO_EQUIPO)
         
         if dias <= 0:
             raise ValueError("Los Dias debe ser mayor a 0 (cero)")
@@ -83,7 +99,7 @@ class Equiposalquilado(Servicio):
 
 class Asesoria(Servicio):
     def __init__(self, horas):
-        super().__init__("Asesoria", 30000)
+        super().__init__("Asesoria", COSTO_ASESORIA)
         
         if horas <= 0:
             raise ValueError("Las Horas deben ser mayor a 0 (cero)")
@@ -122,22 +138,51 @@ class Reserva:
             return f"Reserva confirmada. Costo: {costo}"
         except Exception as e:
             self.estado = "Error"
-            raise Exception("Error al procesar reserva") from e
+            raise RuntimeError("Error al procesar reserva") from e
 
 #Creamos un sistema de Logs
 
 def guardar_logs(mensaje):
     with open("logs.txt", "a") as archivo:
-        archivo.write(mensaje + "\n")
-        
+        archivo.write(f"{datetime.now()} - {mensaje}\n")
+
+# Nueva función
+
+def crear_reserva(cliente, servicio):
+    try:
+        reserva = Reserva(cliente, servicio)
+        sistema.agregar_reserva(reserva)
+        print(reserva.procesar())
+        return reserva
+    except Exception as e:
+        guardar_logs(str(e))        
+
 #En este espacio realizo el manejo de excepciones
 
-clientes= []
-reservas= []
+# Sistema central de reservas
+class SistemaReservas:
+    def __init__(self):
+        self.clientes = []
+        self.reservas = []
+
+    def agregar_cliente(self, cliente):
+        self.clientes.append(cliente)
+
+    def agregar_reserva(self, reserva):
+        self.reservas.append(reserva)
+
+    def mostrar_reservas(self):
+        print("\n--- ESTADO DE RESERVAS ---")
+        for r in self.reservas:
+            print(f"Cliente: {r.cliente.nombre} | Servicio: {r.servicio.nombre} | Estado: {r.estado}")
+
+
+sistema = SistemaReservas() 
+           
 #Cliente válido
 try:
     cliente1 = Cliente(1, "Isaac", "isamnkat@gmail.com")
-    clientes.append(cliente1)
+    sistema.agregar_cliente(cliente1)
     
 except Exception as e:
     guardar_logs(str(e))
@@ -152,9 +197,7 @@ except Exception as e:
 
 try:
     s1 = SalaReservada(2)
-    r1 = Reserva(cliente1, s1)
-    reservas.append(r1)
-    print(r1.procesar() )
+    crear_reserva(cliente1, s1)
 
 except Exception as e:
     guardar_logs(str(e))
@@ -162,10 +205,8 @@ except Exception as e:
 #Equipos reservados válidos
     
 try:
-    s2 = Equiposalquilado(3)
-    r2 = Reserva(cliente1, s2)
-    reservas.append(r2)
-    print(r2.procesar())
+    s2 = AlquilerEquipo(3)
+    crear_reserva(cliente1, s2)
     
 except Exception as e:
     guardar_logs(str(e) )   
@@ -182,7 +223,7 @@ except Exception as e:
 #Servicio inválido equipos con cero dias
 
 try:
-    s4 = Equiposalquilado(0)
+    s4 = AlquilerEquipo(0)
     r4 = Reserva(cliente1, s4)
     print(r4.procesar())
 except Exception as e:
@@ -190,6 +231,4 @@ except Exception as e:
     
 #Mostrar Reservas
 
-print("\n--- ESTADO DE RESERVAS ---")
-for r in reservas:
-    print(f"Cliente: {r.cliente._nombre} | Servicio: {r.servicio.nombre} | Estado: {r.estado}")        
+sistema.mostrar_reservas()
